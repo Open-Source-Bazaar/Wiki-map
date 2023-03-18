@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "ES2020",
+        "moduleResolution": "Node",
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "experimentalDecorators": true,
+        "jsx": "react-jsx",
+        "lib": ["ES2020", "DOM"],
+        "sourceMap": true,
+        "outDir": "./dist/"
+    },
+    "include": ["src/**/*"]
+}
