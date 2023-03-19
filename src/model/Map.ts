@@ -1,5 +1,5 @@
 import { HTTPClient } from 'koajax';
-import { observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { BaseModel, toggle } from 'mobx-restful';
 import { buildURLData } from 'web-utility';
 
@@ -34,6 +34,13 @@ export class MapModel extends BaseModel {
     @observable
     currentAddress?: AddressLocation;
 
+    @computed
+    get currentAddressText() {
+        return (
+            this.currentAddress && MapModel.addressTextOf(this.currentAddress)
+        );
+    }
+
     @toggle('downloading')
     async getCoord() {
         const {
@@ -55,7 +62,7 @@ export class MapModel extends BaseModel {
         return (this.currentAddress = body);
     }
 
-    textOf({
+    static addressTextOf({
         address: {
             country,
             state,
