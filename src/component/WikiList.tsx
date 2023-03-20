@@ -4,9 +4,14 @@ import { ScrollList, ScrollListProps } from 'mobx-restful-table';
 import { Card } from 'react-bootstrap';
 
 import { i18n } from '../model/Translation';
-import { WikiModel, WikiPage, WikiPageFilter } from '../model/Wiki';
+import {
+    WikiBasePage,
+    WikiModel,
+    WikiPage,
+    WikiPageFilter
+} from '../model/Wiki';
 
-export interface WikiListProps extends ScrollListProps<WikiPage> {
+export interface WikiListProps extends ScrollListProps<WikiBasePage> {
     filter: WikiPageFilter;
 }
 
@@ -22,22 +27,31 @@ export class WikiList extends ScrollList<WikiListProps> {
         this.boot();
     }
 
-    renderItem = ({ title, snippet, wordcount, timestamp }: WikiPage) => (
-        <Card as="li" className="my-3" key={title}>
+    renderItem = (page: WikiBasePage) => (
+        <Card as="li" className="my-3" key={page.title}>
             <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Text
-                    dangerouslySetInnerHTML={{
-                        __html: snippet
-                    }}
-                />
+                <Card.Title>{page.title}</Card.Title>
+
+                {'snippet' in page && (
+                    <Card.Text
+                        dangerouslySetInnerHTML={{
+                            __html: (page as WikiPage).snippet
+                        }}
+                    />
+                )}
             </Card.Body>
-            <Card.Footer className="d-flex justify-content-between align-items-center">
-                <span>📜 {wordcount}</span>
-                <time dateTime={timestamp}>
-                    📅 {new Date(timestamp).toLocaleString()}
-                </time>
-            </Card.Footer>
+
+            {'wordcount' in page && (
+                <Card.Footer className="d-flex justify-content-between align-items-center">
+                    <span>📜 {(page as WikiPage).wordcount}</span>
+                    <time dateTime={(page as WikiPage).timestamp}>
+                        📅{' '}
+                        {new Date(
+                            (page as WikiPage).timestamp
+                        ).toLocaleString()}
+                    </time>
+                </Card.Footer>
+            )}
         </Card>
     );
 

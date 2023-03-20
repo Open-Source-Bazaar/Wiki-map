@@ -1,11 +1,15 @@
-import { OpenMap } from 'idea-react';
+import { OpenMap, OpenMapProps } from 'idea-react';
 import { observer } from 'mobx-react';
 import { PureComponent } from 'react';
 
-import mapStore, { AddressLocation } from '../model/Map';
+import mapStore, { AddressLocation, MapModel } from '../model/Map';
 
-export interface AutoMapProps {
-    onLoad?: (address: AddressLocation, addressText: string) => any;
+export interface AutoMapProps extends OpenMapProps {
+    onLoad?: (
+        coordinate: MapModel['currentCoord'],
+        address: AddressLocation,
+        addressText: string
+    ) => any;
 }
 
 @observer
@@ -14,6 +18,7 @@ export class AutoMap extends PureComponent<AutoMapProps> {
         await mapStore.getAddress(...(await mapStore.getCoord()));
 
         this.props.onLoad?.(
+            mapStore.currentCoord,
             mapStore.currentAddress,
             mapStore.currentAddressText
         );
@@ -32,6 +37,7 @@ export class AutoMap extends PureComponent<AutoMapProps> {
                         tooltip: currentAddressText
                     }
                 ]}
+                {...this.props}
             />
         ) : null;
     }
