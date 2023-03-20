@@ -30,7 +30,13 @@ export class WikiList extends ScrollList<WikiListProps> {
     renderItem = (page: WikiBasePage) => (
         <Card as="li" className="my-3" key={page.title}>
             <Card.Body>
-                <Card.Title>{page.title}</Card.Title>
+                <Card.Title
+                    as="a"
+                    className="text-decoration-none stretched-link"
+                    href={`#/entry/${page.title}`}
+                >
+                    {page.title}
+                </Card.Title>
 
                 {'snippet' in page && (
                     <Card.Text
