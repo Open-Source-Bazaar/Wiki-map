@@ -1,12 +1,13 @@
 import { HTTPClient } from 'koajax';
 import { autorun } from 'mobx';
-import { DataObject, Filter, ListModel, Stream } from 'mobx-restful';
-import { buildURLData } from 'web-utility';
+import { DataObject, Filter, ListModel, Stream, toggle } from 'mobx-restful';
+import { buildURLData, parseDOM, stringifyDOM } from 'web-utility';
 
 import { i18n } from './Translation';
 
 export interface WikiBasePage extends Record<'ns' | 'pageid', number> {
     title: string;
+    text?: string;
 }
 
 export type WikiPage = WikiBasePage &
@@ -54,8 +55,16 @@ interface WikiPageSearchList
     };
 }
 
+interface WikiPageData {
+    parse: Pick<WikiBasePage, 'pageid' | 'title'> & {
+        text: Record<string, string>;
+    };
+}
+
 export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
     client = new HTTPClient({ responseType: 'json' });
+
+    commonRequestData = { origin: '*', format: 'json' };
 
     constructor() {
         super();
@@ -80,12 +89,11 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
     async *searchGeo(coordinate: WikiPageFilter['coordinate']) {
         const { body } = await this.client.get<WikiPageGeoSearchList>(
             `api.php?${buildURLData({
+                ...this.commonRequestData,
                 action: 'query',
                 generator: 'geosearch',
                 prop: 'coordinates|pageimages',
-                ggscoord: coordinate.join('|'),
-                origin: '*',
-                format: 'json'
+                ggscoord: coordinate.join('|')
             })}`
         );
         if (!body.query) {
@@ -106,13 +114,12 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
         for (let i = 0; ; i += this.pageSize) {
             const { body } = await this.client.get<WikiPageSearchList>(
                 `api.php?${buildURLData({
+                    ...this.commonRequestData,
                     action: 'query',
                     list: 'search',
                     srsearch: keywords,
                     sroffset: i,
-                    srlimit: this.pageSize,
-                    origin: '*',
-                    format: 'json'
+                    srlimit: this.pageSize
                 })}`
             );
             if (!body.query) {
@@ -128,6 +135,45 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
 
             yield* search;
         }
+    }
+
+    /**
+     * @see {@link https://www.mediawiki.org/wiki/API:Get_the_contents_of_a_page#Method_2:_Use_the_Parse_API}
+     */
+    @toggle('downloading')
+    async getOne(title: string) {
+        const { body } = await this.client.get<WikiPageData>(
+            `api.php?${buildURLData({
+                ...this.commonRequestData,
+                action: 'parse',
+                page: title,
+                prop: 'text'
+            })}`
+        );
+        const { text, ...page } = body.parse,
+            fragment = document.createDocumentFragment();
+
+        fragment.append(...parseDOM(Object.values(text)[0]));
+
+        fragment.querySelector('.infobox')?.remove();
+
+        const reference = fragment.querySelector('.reflist');
+
+        reference?.previousElementSibling.remove();
+        reference?.remove();
+
+        [...fragment.querySelectorAll('.navbox')].slice(-1)[0]?.remove();
+
+        for (const editor of fragment.querySelectorAll(
+            '.sistersitebox, .mw-editsection'
+        ))
+            editor.remove();
+
+        return (this.currentOne = {
+            ns: 0,
+            ...page,
+            text: stringifyDOM(fragment)
+        });
     }
 }
 
