@@ -85,6 +85,7 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
 
     /**
      * @see {@link https://www.mediawiki.org/wiki/API:Search#GET_request}
+     * @todo {@link https://wikilocation.org/}
      */
     async *searchGeo(coordinate: WikiPageFilter['coordinate']) {
         const { body } = await this.client.get<WikiPageGeoSearchList>(
@@ -157,7 +158,7 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
 
         fragment.querySelector('.infobox')?.remove();
 
-        const reference = fragment.querySelector('.reflist');
+        const reference = fragment.querySelector('.reflist, .references');
 
         reference?.previousElementSibling.remove();
         reference?.remove();
@@ -165,7 +166,7 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
         [...fragment.querySelectorAll('.navbox')].slice(-1)[0]?.remove();
 
         for (const editor of fragment.querySelectorAll(
-            '.sistersitebox, .mw-editsection'
+            '.sistersitebox, sup.reference, .mw-editsection'
         ))
             editor.remove();
 
