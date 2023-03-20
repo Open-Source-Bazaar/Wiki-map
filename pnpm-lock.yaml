@@ -1,15 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@editorjs/code': ^2.8.0
-  '@editorjs/editorjs': ^2.26.5
-  '@editorjs/header': ^2.7.0
-  '@editorjs/image': ^2.8.1
-  '@editorjs/link': ^2.5.0
-  '@editorjs/list': ^1.8.0
-  '@editorjs/paragraph': ^2.9.0
-  '@editorjs/quote': ^2.5.0
-  '@octokit/openapi-types': ^16.0.0
   '@parcel/config-default': 2.7.0
   '@parcel/packager-raw-url': 2.7.0
   '@parcel/transformer-less': 2.7.0
@@ -20,9 +11,7 @@ specifiers:
   '@types/node': ^16.18.16
   '@types/react': ^17.0.53
   '@types/react-dom': ^17.0.19
-  browser-fs-access: ^0.33.0
   browser-unhandled-rejection: ^1.0.2
-  editorjs-html: ^3.4.2
   husky: ^8.0.3
   idea-react: ^1.0.0-beta.0
   iterable-observer: ^1.0.0-rc.1
@@ -38,13 +27,10 @@ specifiers:
   postcss: ^8.4.21
   postcss-modules: ^4.3.1
   prettier: ^2.8.4
-  prismjs: ^1.29.0
   process: ^0.11.10
   react: ^17.0.2
   react-bootstrap: ^2.7.2
-  react-bootstrap-editor: ^1.0.0-rc.7
   react-dom: ^17.0.2
-  react-editor-js: ^2.1.0
   react-router-class-tools: ^0.1.2
   react-router-dom: ^6.9.0
   typescript: ~4.7.4
@@ -52,17 +38,7 @@ specifiers:
   workbox-cli: ^6.5.4
 
 dependencies:
-  '@editorjs/code': 2.8.0
-  '@editorjs/editorjs': 2.26.5
-  '@editorjs/header': 2.7.0
-  '@editorjs/image': 2.8.1
-  '@editorjs/link': 2.5.0
-  '@editorjs/list': 1.8.0
-  '@editorjs/paragraph': 2.9.0
-  '@editorjs/quote': 2.5.0
-  browser-fs-access: 0.33.0
   browser-unhandled-rejection: 1.0.2
-  editorjs-html: 3.4.2
   idea-react: 1.0.0-beta.0_gqp3qkkimmklxeucimuzkl2dvq
   iterable-observer: 1.0.0-rc.1
   koajax: 0.8.3_typescript@4.7.4
@@ -74,15 +50,12 @@ dependencies:
   mobx-restful-table: 0.10.0_7y2bnaf56tdvwmoc2537fjv3cu
   react: 17.0.2
   react-bootstrap: 2.7.2_zsjcj4gvi24ks76nprapl4hsmq
-  react-bootstrap-editor: 1.0.0-rc.7_typescript@4.7.4
   react-dom: 17.0.2_react@17.0.2
-  react-editor-js: 2.1.0_ykokb2mcshig6c3qzgmwwlwuk4
   react-router-class-tools: 0.1.2_tonnb7k7e66pmcikk4xgggqjqm
   react-router-dom: 6.9.0_sfoxds7t5ydpegc3knd667wn6m
   web-utility: 4.0.0_typescript@4.7.4
 
 devDependencies:
-  '@octokit/openapi-types': 16.0.0
   '@parcel/config-default': 2.7.0_postcss@8.4.21
   '@parcel/packager-raw-url': 2.7.0
   '@parcel/transformer-less': 2.7.0
@@ -99,7 +72,6 @@ devDependencies:
   postcss: 8.4.21
   postcss-modules: 4.3.1_postcss@8.4.21
   prettier: 2.8.4
-  prismjs: 1.29.0
   process: 0.11.10
   typescript: 4.7.4
   workbox-cli: 6.5.4
@@ -1272,22 +1244,8 @@ packages:
     resolution: {integrity: sha512-V8N/TY2TGyas4wLrPIFq7bcow68b3gu8DfDt1+rrHPtXxcexadKauRJL6eQgfG7Z0LCrN4boLRawR4S9gjIh/Q==}
     dev: false
 
-  /@codexteam/icons/0.0.5:
-    resolution: {integrity: sha512-s6H2KXhLz2rgbMZSkRm8dsMJvyUNZsEjxobBEg9ztdrb1B2H3pEzY6iTwI4XUPJWJ3c3qRKwV4TrO3J5jUdoQA==}
-    dev: false
-
-  /@codexteam/icons/0.0.6:
-    resolution: {integrity: sha512-L7Q5PET8PjKcBT5wp7VR+FCjwCi5PUp7rd/XjsgQ0CI5FJz0DphyHGRILMuDUdCW2MQT9NHbVr4QP31vwAkS/A==}
-    dev: false
-
   /@codexteam/icons/0.1.0:
     resolution: {integrity: sha512-jW1fWnwtWzcP4FBGsaodbJY3s1ZaRU+IJy1pvJ7ygNQxkQinybJcwXoyt0a5mWwu/4w30A42EWhCrZn8lp4fdw==}
-    dev: false
-
-  /@editorjs/code/2.8.0:
-    resolution: {integrity: sha512-qlv1OqSEPKnLv/ZQgNFmVgqsMbGDkh/qgTEnbVWsS+yujo1nlwgVkqCB8tOkQGVsrpmAYLiWRlA413nKxxCN5w==}
-    dependencies:
-      '@codexteam/icons': 0.0.5
     dev: false
 
   /@editorjs/editorjs/2.26.5:
@@ -1300,41 +1258,10 @@ packages:
       nanoid: 3.3.4
     dev: false
 
-  /@editorjs/header/2.7.0:
-    resolution: {integrity: sha512-4fGKGe2ZYblVqR/P/iw5ieG00uXInFgNMftBMqJRYcB2hUPD30kuu7Sn6eJDcLXoKUMOeqi8Z2AlUxYAmvw7zQ==}
-    dependencies:
-      '@codexteam/icons': 0.0.5
-    dev: false
-
-  /@editorjs/image/2.8.1:
-    resolution: {integrity: sha512-4WscDAoi6OO0F6L7N1mkQymADwj8hHgH/ICk5wGRPdkesUZW1TgldX8XvSmy+f5VylsEi3F/gUggaZsrYxu2sA==}
-    dependencies:
-      '@codexteam/icons': 0.0.6
-    dev: false
-
-  /@editorjs/link/2.5.0:
-    resolution: {integrity: sha512-3Oa1VweBY7Sscjzw8pv1QcWGyP+XdPl6+yu+gXnSETyjz9TQRZUjved0qw2OomYOjMZ3RumrdDJXxoALlZdvuQ==}
-    dependencies:
-      '@babel/runtime': 7.18.9
-      '@codexteam/icons': 0.0.4
-    dev: false
-
-  /@editorjs/list/1.8.0:
-    resolution: {integrity: sha512-Vq6cjyTXBzgegYv/MtTfuDdiz59yGhDEc/yAVXr6lmvoWAFs9cJ4TLuh4/9SbrbhIptcQLDvUjMDKmRrV6v2NQ==}
-    dependencies:
-      '@codexteam/icons': 0.0.4
-    dev: false
-
   /@editorjs/paragraph/2.9.0:
     resolution: {integrity: sha512-lI6x1eiqFx2X3KmMak6gBlimFqXhG35fQpXMxzrjIphNLr4uPsXhVbyMPimPoLUnS9rM6Q00vptXmP2QNDd0zg==}
     dependencies:
       '@codexteam/icons': 0.0.4
-    dev: false
-
-  /@editorjs/quote/2.5.0:
-    resolution: {integrity: sha512-24Mu8cESaj34a0kg1Enj7qiZ3yiCOsZI59+8xpfXLO/NkO7hBYWNForVcBy5yIWs/VLlEZK11FP37f/mHrKugQ==}
-    dependencies:
-      '@codexteam/icons': 0.0.5
     dev: false
 
   /@jridgewell/gen-mapping/0.1.1:
@@ -1496,10 +1423,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@octokit/openapi-types/16.0.0:
-    resolution: {integrity: sha512-JbFWOqTJVLHZSUUoF4FzAZKYtqdxWu9Z5m2QQnOyEa04fOFljvyh7D3GYKbfuaSWisqehImiVIMG4eyJeP5VEA==}
-    dev: true
 
   /@parcel/bundler-default/2.7.0:
     resolution: {integrity: sha512-PU5MtWWhc+dYI9x8mguYnm9yiG6TkI7niRpxgJgtqAyGHuEyNXVBQQ0X+qyOF4D9LdankBf8uNN18g31IET2Zg==}
@@ -2928,14 +2851,6 @@ packages:
       fill-range: 7.0.1
     dev: true
 
-  /browser-fs-access/0.31.1:
-    resolution: {integrity: sha512-jMz9f56DkLM7LyA8wZYO7CtpoF3RdUk1/FXrnRNybgV0R5eqk/fgFWR0k5IMjPYgK4jmZecytP/UDO5WBi9Dhg==}
-    dev: false
-
-  /browser-fs-access/0.33.0:
-    resolution: {integrity: sha512-OIroFiFdNcITJnLCJUoJBRWLf6lu/e7h24Ik0khWg7Ozn+sR+asYiSeiPpXmV32OgogSNiOqCoaI1/7vrl1T+Q==}
-    dev: false
-
   /browser-unhandled-rejection/1.0.2:
     resolution: {integrity: sha512-WKtQ9zDqXEffcNbvcfhrL/g5N8EVcvUWNskhXAlpx6mBD/kxYFKSY6wVAw59gXIrgxYCLk571hhXyWltaNEZ0A==}
     dev: false
@@ -3433,14 +3348,6 @@ packages:
 
   /editorjs-html/3.4.2:
     resolution: {integrity: sha512-Gy8FV4oHMvnPDXLsdpZYW0Dgjaagff9bPd28/WW9aFdy87FvktJxQz8H+NKpxiGcGoNY27MmjFffurK2yhXjEg==}
-    dev: false
-
-  /edkit/1.0.0-rc.6:
-    resolution: {integrity: sha512-6RpmjEqg9YqhUHDkXKvZS8V9ZDkNyFwlLQkneeywOlg/aliLTDQGo86hCnpvnlHb8MsM9TgSoSusE6Xj98IZkw==}
-    dependencies:
-      '@swc/helpers': 0.4.14
-      browser-fs-access: 0.31.1
-      regenerator-runtime: 0.13.11
     dev: false
 
   /ejs/3.1.8:
@@ -5183,6 +5090,7 @@ packages:
   /prismjs/1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
     engines: {node: '>=6'}
+    dev: false
 
   /process/0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
@@ -5251,18 +5159,6 @@ packages:
       minimist: 1.2.6
       strip-json-comments: 2.0.1
     dev: true
-
-  /react-bootstrap-editor/1.0.0-rc.7_typescript@4.7.4:
-    resolution: {integrity: sha512-YK9LSGv5lHwVnm1/tKRmVYIIEJe63H9rvY7B7gU+WcIG7PGcwjdQ6VdwfBQlWNcyE7kt/eptCX5pH5rAM53wnQ==}
-    dependencies:
-      '@swc/helpers': 0.4.14
-      edkit: 1.0.0-rc.6
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      web-utility: 3.9.9_typescript@4.7.4
-    transitivePeerDependencies:
-      - typescript
-    dev: false
 
   /react-bootstrap/2.7.2_zsjcj4gvi24ks76nprapl4hsmq:
     resolution: {integrity: sha512-WDSln+mG4RLLFO01stkj2bEx/3MF4YihK9D/dWnHaSxOiQZLbhhlf95D2Jb20X3t2m7vMxRe888FVrfLJoGmmA==}
