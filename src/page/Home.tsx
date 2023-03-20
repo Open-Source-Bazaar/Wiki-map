@@ -5,6 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-class-tools';
 
 import { AutoMap } from '../component/AutoMap';
 import { WikiList } from '../component/WikiList';
+import { MapModel } from '../model/Map';
 import { i18n } from '../model/Translation';
 
 const { t } = i18n;
@@ -16,19 +17,24 @@ class HomePage extends PureComponent<
     @observable
     keywords = '';
 
+    @observable
+    coordinate?: MapModel['currentCoord'];
+
     render() {
-        const { keywords } = this;
+        const { keywords, coordinate } = this;
 
         return (
-            <main
-                className="position-relative"
-                style={{ height: 'calc(100vh - 3.7rem)' }}
-            >
-                <AutoMap onLoad={({}, address) => (this.keywords = address)} />
-
-                {keywords && (
-                    <div className="fixed-bottom h-25 overflow-auto px-3 pb-3 bg-white">
-                        <WikiList filter={{ keywords }} />
+            <main style={{ height: 'calc(100vh - 3.7rem)' }}>
+                <AutoMap
+                    className="h-50"
+                    onLoad={(coordinate, {}, address) => {
+                        this.keywords = address;
+                        this.coordinate = coordinate;
+                    }}
+                />
+                {keywords && coordinate && (
+                    <div className="h-50 overflow-auto px-3 pb-3 bg-white">
+                        <WikiList filter={{ keywords, coordinate }} />
                     </div>
                 )}
             </main>

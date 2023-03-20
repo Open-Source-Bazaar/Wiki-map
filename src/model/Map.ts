@@ -46,7 +46,9 @@ export class MapModel extends BaseModel {
         const {
             coords: { latitude, longitude }
         } = await new Promise<GeolocationPosition>((resolve, reject) =>
-            navigator.geolocation.getCurrentPosition(resolve, reject)
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+                enableHighAccuracy: true
+            })
         );
         return (this.currentCoord = [latitude, longitude]);
     }
