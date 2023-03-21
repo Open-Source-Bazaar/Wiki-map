@@ -7,7 +7,7 @@ import { i18n } from '../model/Translation';
 import {
     WikiBasePage,
     WikiModel,
-    WikiPage,
+    WikiSearchPage,
     WikiPageFilter
 } from '../model/Wiki';
 
@@ -41,7 +41,7 @@ export class WikiList extends ScrollList<WikiListProps> {
                 {'snippet' in page && (
                     <Card.Text
                         dangerouslySetInnerHTML={{
-                            __html: (page as WikiPage).snippet
+                            __html: (page as WikiSearchPage).snippet
                         }}
                     />
                 )}
@@ -49,11 +49,11 @@ export class WikiList extends ScrollList<WikiListProps> {
 
             {'wordcount' in page && (
                 <Card.Footer className="d-flex justify-content-between align-items-center">
-                    <span>📜 {(page as WikiPage).wordcount}</span>
-                    <time dateTime={(page as WikiPage).timestamp}>
+                    <span>📜 {(page as WikiSearchPage).wordcount}</span>
+                    <time dateTime={(page as WikiSearchPage).timestamp}>
                         📅{' '}
                         {new Date(
-                            (page as WikiPage).timestamp
+                            (page as WikiSearchPage).timestamp
                         ).toLocaleString()}
                     </time>
                 </Card.Footer>

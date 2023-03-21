@@ -1,5 +1,5 @@
 import { HTTPClient } from 'koajax';
-import { autorun } from 'mobx';
+import { autorun, when } from 'mobx';
 import { DataObject, Filter, ListModel, Stream, toggle } from 'mobx-restful';
 import { buildURLData, parseDOM, stringifyDOM } from 'web-utility';
 
@@ -10,7 +10,16 @@ export interface WikiBasePage extends Record<'ns' | 'pageid', number> {
     text?: string;
 }
 
-export type WikiPage = WikiBasePage &
+export interface WikiPage
+    extends WikiBasePage,
+        Record<'lastrevid' | 'length', number>,
+        Record<'touched' | 'fullurl' | 'editurl' | 'canonicalurl', string>,
+        Record<'pagelanguage' | 'pagelanguagehtmlcode', 'en'> {
+    contentmodel: 'wikitext';
+    pagelanguagedir: 'ltr';
+}
+
+export type WikiSearchPage = WikiBasePage &
     Record<'size' | 'wordcount', number> &
     Record<'snippet' | 'timestamp', string>;
 
@@ -39,15 +48,16 @@ interface WikiQueryData<T extends DataObject> {
     batchcomplete: string;
     query?: T;
 }
-
-type WikiPageGeoSearchList = WikiQueryData<{
-    pages: Record<string, WikiGeoPage>;
+type WikiPageQueryData<T extends WikiBasePage> = WikiQueryData<{
+    pages: Record<string, T>;
 }>;
+type WikiPageInfo = WikiPageQueryData<WikiPage>;
+type WikiPageGeoSearchList = WikiPageQueryData<WikiGeoPage>;
 
 interface WikiPageSearchList
     extends WikiQueryData<{
         searchinfo: { totalhits: number };
-        search: WikiPage[];
+        search: WikiSearchPage[];
     }> {
     continue: {
         sroffset: number;
@@ -55,7 +65,7 @@ interface WikiPageSearchList
     };
 }
 
-interface WikiPageData {
+interface WikiPageContent {
     parse: Pick<WikiBasePage, 'pageid' | 'title'> & {
         text: Record<string, string>;
     };
@@ -72,7 +82,7 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
         autorun(
             () =>
                 (this.client.baseURI = `https://${
-                    i18n.currentLanguage.split('-')[0]
+                    i18n.currentLanguage?.split('-')[0] || 'en'
                 }.wikipedia.org/w/`)
         );
     }
@@ -138,23 +148,10 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
         }
     }
 
-    /**
-     * @see {@link https://www.mediawiki.org/wiki/API:Get_the_contents_of_a_page#Method_2:_Use_the_Parse_API}
-     */
-    @toggle('downloading')
-    async getOne(title: string) {
-        const { body } = await this.client.get<WikiPageData>(
-            `api.php?${buildURLData({
-                ...this.commonRequestData,
-                action: 'parse',
-                page: title,
-                prop: 'text'
-            })}`
-        );
-        const { text, ...page } = body.parse,
-            fragment = document.createDocumentFragment();
+    simplifyHTML(text: string) {
+        const fragment = document.createDocumentFragment();
 
-        fragment.append(...parseDOM(Object.values(text)[0]));
+        fragment.append(...parseDOM(text));
 
         fragment.querySelector('.infobox')?.remove();
 
@@ -166,14 +163,51 @@ export class WikiModel extends Stream<WikiBasePage, WikiPageFilter>(ListModel) {
         [...fragment.querySelectorAll('.navbox')].slice(-1)[0]?.remove();
 
         for (const editor of fragment.querySelectorAll(
-            '.sistersitebox, sup.reference, .mw-editsection'
+            '.sistersitebox, .ambox, sup.reference, .mw-editsection'
         ))
             editor.remove();
 
+        return stringifyDOM(fragment);
+    }
+
+    /**
+     * @see {@link https://www.mediawiki.org/wiki/API:Info#GET_request}
+     * @see {@link https://www.mediawiki.org/wiki/API:Get_the_contents_of_a_page#Method_2:_Use_the_Parse_API}
+     */
+    @toggle('downloading')
+    async getOne(title: string): Promise<WikiPage> {
+        await when(() => !!i18n.currentLanguage);
+
+        const {
+            body: {
+                query: { pages }
+            }
+        } = await this.client.get<WikiPageInfo>(
+            `api.php?${buildURLData({
+                ...this.commonRequestData,
+                action: 'query',
+                titles: title,
+                prop: 'info',
+                inprop: 'url'
+            })}`
+        );
+
+        const {
+            body: {
+                parse: { text }
+            }
+        } = await this.client.get<WikiPageContent>(
+            `api.php?${buildURLData({
+                ...this.commonRequestData,
+                action: 'parse',
+                page: title,
+                prop: 'text'
+            })}`
+        );
+
         return (this.currentOne = {
-            ns: 0,
-            ...page,
-            text: stringifyDOM(fragment)
+            ...Object.values(pages)[0],
+            text: this.simplifyHTML(Object.values(text)[0])
         });
     }
 }

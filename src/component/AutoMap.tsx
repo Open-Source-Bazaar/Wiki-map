@@ -1,4 +1,4 @@
-import { OpenMap, OpenMapProps } from 'idea-react';
+import { Loading, OpenMap, OpenMapProps } from 'idea-react';
 import { observer } from 'mobx-react';
 import { PureComponent } from 'react';
 
@@ -39,6 +39,8 @@ export class AutoMap extends PureComponent<AutoMapProps> {
                 ]}
                 {...this.props}
             />
-        ) : null;
+        ) : (
+            <Loading />
+        );
     }
 }
