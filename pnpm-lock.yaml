@@ -8,7 +8,7 @@ specifiers:
   '@parcel/transformer-typescript-tsc': 2.7.0
   '@parcel/transformer-webmanifest': 2.7.0
   '@types/lodash': ^4.14.191
-  '@types/node': ^16.18.16
+  '@types/node': ^16.18.18
   '@types/react': ^17.0.53
   '@types/react-dom': ^17.0.19
   browser-unhandled-rejection: ^1.0.2
@@ -26,7 +26,7 @@ specifiers:
   parcel: 2.7.0
   postcss: ^8.4.21
   postcss-modules: ^4.3.1
-  prettier: ^2.8.4
+  prettier: ^2.8.6
   process: ^0.11.10
   react: ^17.0.2
   react-bootstrap: ^2.7.2
@@ -63,7 +63,7 @@ devDependencies:
   '@parcel/transformer-typescript-tsc': 2.7.0_typescript@4.7.4
   '@parcel/transformer-webmanifest': 2.7.0
   '@types/lodash': 4.14.191
-  '@types/node': 16.18.16
+  '@types/node': 16.18.18
   '@types/react': 17.0.53
   '@types/react-dom': 17.0.19
   husky: 8.0.3
@@ -71,7 +71,7 @@ devDependencies:
   parcel: 2.7.0_postcss@8.4.21
   postcss: 8.4.21
   postcss-modules: 4.3.1_postcss@8.4.21
-  prettier: 2.8.4
+  prettier: 2.8.6
   process: 0.11.10
   typescript: 4.7.4
   workbox-cli: 6.5.4
@@ -2570,7 +2570,7 @@ packages:
   /@types/keyv/3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 16.18.16
+      '@types/node': 16.18.18
     dev: true
 
   /@types/leaflet/1.9.3:
@@ -2587,8 +2587,8 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/node/16.18.16:
-    resolution: {integrity: sha512-ZOzvDRWp8dCVBmgnkIqYCArgdFOO9YzocZp8Ra25N/RStKiWvMOXHMz+GjSeVNe5TstaTmTWPucGJkDw0XXJWA==}
+  /@types/node/16.18.18:
+    resolution: {integrity: sha512-fwGw1uvQAzabxL1pyoknPlJIF2t7+K90uTqynleKRx24n3lYcxWa3+KByLhgkF8GEAK2c7hC8Ki0RkNM5H15jQ==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -2624,13 +2624,13 @@ packages:
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 16.18.16
+      '@types/node': 16.18.18
     dev: true
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 16.18.16
+      '@types/node': 16.18.18
     dev: true
 
   /@types/scheduler/0.16.2:
@@ -4182,7 +4182,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.18.16
+      '@types/node': 16.18.18
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: true
@@ -5076,8 +5076,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /prettier/2.8.4:
-    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
+  /prettier/2.8.6:
+    resolution: {integrity: sha512-mtuzdiBbHwPEgl7NxWlqOkithPyp4VN93V7VeHVWBF+ad3I5avc0RVDT4oImXQy9H/AqxA2NSQH8pSxHW6FYbQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true

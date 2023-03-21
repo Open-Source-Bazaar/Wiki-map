@@ -1,4 +1,4 @@
-import { autorun, observable } from 'mobx';
+import { observable, reaction } from 'mobx';
 import { getVisibleText } from 'web-utility';
 
 import { i18n } from './Translation';
@@ -10,24 +10,40 @@ export enum TTSState {
 }
 
 export class Text2VoiceModel {
-    voice: SpeechSynthesisVoice;
-
     @observable
     state = TTSState.Clear;
 
     constructor() {
-        autorun(
-            () =>
-                (this.voice = speechSynthesis
-                    .getVoices()
-                    .find(({ lang }) => lang === i18n.currentLanguage))
-        );
+        reaction(() => i18n.currentLanguage, this.clear);
+
+        globalThis.addEventListener('unload', this.clear);
+    }
+
+    clear = () => {
+        this.state = TTSState.Clear;
+        speechSynthesis.cancel();
+    };
+
+    static getVoices() {
+        const voices = speechSynthesis.getVoices();
+
+        return voices[0]
+            ? Promise.resolve(voices)
+            : new Promise<SpeechSynthesisVoice[]>(resolve => {
+                  speechSynthesis.onvoiceschanged = () =>
+                      resolve(speechSynthesis.getVoices());
+              });
     }
 
     async speak(text: string) {
-        const content = new SpeechSynthesisUtterance(text);
+        const content = new SpeechSynthesisUtterance(text),
+            voices = await Text2VoiceModel.getVoices();
 
-        content.voice = this.voice;
+        content.voice =
+            voices.find(
+                ({ localService, lang }) =>
+                    localService && lang === i18n.currentLanguage
+            ) || voices.find(({ default: backup }) => backup);
 
         const result = new Promise((resolve, reject) => {
             content.onend = resolve;
@@ -39,10 +55,9 @@ export class Text2VoiceModel {
 
         try {
             await result;
-        } catch {
-            speechSynthesis.cancel();
+        } finally {
+            this.clear();
         }
-        this.state = TTSState.Clear;
     }
 
     toggle() {
@@ -57,7 +72,7 @@ export class Text2VoiceModel {
         }
     }
 
-    *walk(range: Range) {
+    static *walk(range: Range) {
         const walker = document.createNodeIterator(
             range.commonAncestorContainer
         );
@@ -70,7 +85,7 @@ export class Text2VoiceModel {
         }
     }
 
-    getSelectedText(box: Element) {
+    static getSelectedText(box: Element) {
         const range = getSelection()?.getRangeAt(0);
 
         if (
@@ -99,7 +114,7 @@ export class Text2VoiceModel {
                 .trim();
     }
 
-    getReadableText(box: Element) {
+    static getReadableText(box: Element) {
         try {
             return this.getSelectedText(box);
         } catch {

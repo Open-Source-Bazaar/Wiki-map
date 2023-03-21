@@ -1,8 +1,8 @@
 {
-  "name": "React scaffold",
-  "short_name": "React Demo",
+  "name": "Wiki map",
+  "short_name": "Wiki map",
   "start_url": ".",
-  "description": "React project scaffold based on TypeScript, MobX & Bootstrap, which is inspired by WebCell scaffold.",
+  "description": "Wiki map PWA with Text-to-Speak support, which is based on OpenStreetMap & Wikipedia API, and can be used as a trusted Tour guide.",
   "scope": ".",
   "display": "standalone",
   "orientation": "any",

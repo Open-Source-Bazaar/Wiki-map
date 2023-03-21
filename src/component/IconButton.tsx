@@ -26,7 +26,7 @@ export const IconButton: FC<IconButtonProps> = ({
 );
 
 export const FloatIconButton: FC<IconButtonProps> = ({
-    className = 'position-fixed bottom-0 end-0 p-3',
+    className = 'position-fixed bottom-0 end-0 z-1 p-3',
     style,
     ...props
 }) => (
