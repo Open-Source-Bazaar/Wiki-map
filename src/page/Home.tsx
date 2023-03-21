@@ -1,9 +1,9 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { PureComponent } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-class-tools';
 
 import { AutoMap } from '../component/AutoMap';
+import { FloatIconButton } from '../component/IconButton';
 import { WikiList } from '../component/WikiList';
 import { MapModel } from '../model/Map';
 import { i18n } from '../model/Translation';
@@ -11,9 +11,7 @@ import { i18n } from '../model/Translation';
 const { t } = i18n;
 
 @observer
-class HomePage extends PureComponent<
-    RouteComponentProps<{}, {}, { guest: string }>
-> {
+export class HomePage extends PureComponent {
     @observable
     keywords = '';
 
@@ -37,9 +35,8 @@ class HomePage extends PureComponent<
                         <WikiList filter={{ keywords, coordinate }} />
                     </div>
                 )}
+                <FloatIconButton name="arrow-clockwise" href="/" />
             </main>
         );
     }
 }
-
-export default withRouter(HomePage);

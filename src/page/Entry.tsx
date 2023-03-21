@@ -3,6 +3,8 @@ import { PureComponent } from 'react';
 import { Container } from 'react-bootstrap';
 import { RouteComponentProps, withRouter } from 'react-router-class-tools';
 
+import { FloatIconButton } from '../component/IconButton';
+import text2voice, { TTSState } from '../model/Text2Voice';
 import { i18n } from '../model/Translation';
 import wikiStore from '../model/Wiki';
 
@@ -13,6 +15,14 @@ class EntryPage extends PureComponent<RouteComponentProps<{ title: string }>> {
 
         wikiStore.getOne(title);
     }
+
+    toggleVoice = () => {
+        if (text2voice.state === TTSState.Clear)
+            text2voice.speak(
+                text2voice.getReadableText(document.querySelector('article'))
+            );
+        else text2voice.toggle();
+    };
 
     /**
      * @see {@link https://www.mediawiki.org/wiki/API:Styling_content}
@@ -34,6 +44,14 @@ class EntryPage extends PureComponent<RouteComponentProps<{ title: string }>> {
                 <article
                     className="py-3"
                     dangerouslySetInnerHTML={{ __html: text }}
+                />
+                <FloatIconButton
+                    name={
+                        text2voice.state !== TTSState.Pause
+                            ? 'pause-fill'
+                            : 'play-fill'
+                    }
+                    onClick={this.toggleVoice}
                 />
             </Container>
         );

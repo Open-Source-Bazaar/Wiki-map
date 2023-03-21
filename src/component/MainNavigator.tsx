@@ -33,15 +33,9 @@ export const MainNavigator = observer(() => {
                         <Nav.Link className="text-white" href="#/">
                             {t('home_page')}
                         </Nav.Link>
-                        <Nav.Link className="text-white" href="#/component">
-                            {t('component')}
-                        </Nav.Link>
-                        <Nav.Link className="text-white" href="#/pagination">
-                            {t('pagination')}
-                        </Nav.Link>
                         <Nav.Link
                             className="text-white"
-                            href="https://github.com/idea2app/React-MobX-Bootstrap-ts"
+                            href="https://github.com/Open-Source-Bazaar/Wiki-map"
                         >
                             {t('source_code')}
                         </Nav.Link>
