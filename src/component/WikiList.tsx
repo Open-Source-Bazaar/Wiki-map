@@ -1,77 +1,38 @@
-import { Loading } from 'idea-react';
-import { observer } from 'mobx-react';
-import { ScrollList, ScrollListProps } from 'mobx-restful-table';
+import { FC } from 'react';
 import { Card } from 'react-bootstrap';
 
-import { i18n } from '../model/Translation';
-import {
-    WikiBasePage,
-    WikiModel,
-    WikiSearchPage,
-    WikiPageFilter
-} from '../model/Wiki';
+import { WikiBasePage, WikiSearchPage } from '../model/Wiki';
 
-export interface WikiListProps extends ScrollListProps<WikiBasePage> {
-    filter: WikiPageFilter;
-}
+export const WikiCard: FC<WikiBasePage> = page => (
+    <Card as="li" className="my-3" key={page.title}>
+        <Card.Body>
+            <Card.Title
+                as="a"
+                className="text-decoration-none stretched-link"
+                href={`#/entry/${page.title}`}
+            >
+                {page.title}
+            </Card.Title>
 
-@observer
-export class WikiList extends ScrollList<WikiListProps> {
-    translator = i18n;
-    store = new WikiModel();
-    filter = this.props.filter;
-
-    constructor(props: WikiListProps) {
-        super(props);
-
-        this.boot();
-    }
-
-    renderItem = (page: WikiBasePage) => (
-        <Card as="li" className="my-3" key={page.title}>
-            <Card.Body>
-                <Card.Title
-                    as="a"
-                    className="text-decoration-none stretched-link"
-                    href={`#/entry/${page.title}`}
-                >
-                    {page.title}
-                </Card.Title>
-
-                {'snippet' in page && (
-                    <Card.Text
-                        dangerouslySetInnerHTML={{
-                            __html: (page as WikiSearchPage).snippet
-                        }}
-                    />
-                )}
-            </Card.Body>
-
-            {'wordcount' in page && (
-                <Card.Footer className="d-flex justify-content-between align-items-center">
-                    <span>📜 {(page as WikiSearchPage).wordcount}</span>
-                    <time dateTime={(page as WikiSearchPage).timestamp}>
-                        📅{' '}
-                        {new Date(
-                            (page as WikiSearchPage).timestamp
-                        ).toLocaleString()}
-                    </time>
-                </Card.Footer>
+            {'snippet' in page && (
+                <Card.Text
+                    dangerouslySetInnerHTML={{
+                        __html: (page as WikiSearchPage).snippet
+                    }}
+                />
             )}
-        </Card>
-    );
+        </Card.Body>
 
-    renderList() {
-        const { downloading, allItems } = this.store;
-
-        return (
-            <>
-                {downloading > 0 && <Loading />}
-
-                <ol className="list-unstyled m-0">
-                    {allItems.map(this.renderItem)}
-                </ol>
-            </>
-        );
-    }
-}
+        {'wordcount' in page && (
+            <Card.Footer className="d-flex justify-content-between align-items-center">
+                <span>📜 {(page as WikiSearchPage).wordcount}</span>
+                <time dateTime={(page as WikiSearchPage).timestamp}>
+                    📅{' '}
+                    {new Date(
+                        (page as WikiSearchPage).timestamp
+                    ).toLocaleString()}
+                </time>
+            </Card.Footer>
+        )}
+    </Card>
+);
