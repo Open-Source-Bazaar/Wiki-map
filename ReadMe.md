@@ -7,8 +7,8 @@ Wiki map [PWA][4] with [Text-to-Speak][5] support, which is based on [OpenStreet
 ## Technology stack
 
 -   Language: [TypeScript v5][2]
--   Component engine: [React 17][1]
--   State management: [MobX v5][3]
+-   Component engine: [React v17][1]
+-   State management: [MobX v6][3]
 -   Component suite: [React Bootstrap v2][8]
 -   HTTP Client: [KoAJAX][9]
 -   PWA framework: [Workbox v7][10]
@@ -41,7 +41,7 @@ pnpm build
 6. https://github.com/super8989/WikiMap
 7. https://github.com/corrinachow/wiki-maps
 
-[1]: https://reactjs.org/
+[1]: https://react.dev/
 [2]: https://www.typescriptlang.org/
 [3]: https://mobx.js.org/
 [4]: https://web.dev/progressive-web-apps/

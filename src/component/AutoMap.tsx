@@ -1,10 +1,11 @@
-import { Loading, OpenMap, OpenMapProps } from 'idea-react';
+import { Loading } from 'idea-react';
 import { observer } from 'mobx-react';
+import { OpenReactMap, OpenReactMapProps } from 'open-react-map';
 import { PureComponent } from 'react';
 
 import mapStore, { AddressLocation, MapModel } from '../model/Map';
 
-export interface AutoMapProps extends OpenMapProps {
+export interface AutoMapProps extends OpenReactMapProps {
     onLoad?: (
         coordinate: MapModel['currentCoord'],
         address: AddressLocation,
@@ -28,7 +29,7 @@ export class AutoMap extends PureComponent<AutoMapProps> {
         const { currentCoord, currentAddressText } = mapStore;
 
         return currentCoord && currentAddressText ? (
-            <OpenMap
+            <OpenReactMap
                 center={currentCoord}
                 zoom={18}
                 markers={[

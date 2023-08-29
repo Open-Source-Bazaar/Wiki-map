@@ -1,4 +1,4 @@
-import { observable, reaction } from 'mobx';
+import { makeObservable, observable, reaction } from 'mobx';
 import { getVisibleText } from 'web-utility';
 
 import { i18n } from './Translation';
@@ -14,6 +14,8 @@ export class Text2VoiceModel {
     state = TTSState.Clear;
 
     constructor() {
+        makeObservable(this);
+
         reaction(() => i18n.currentLanguage, this.clear);
 
         globalThis.addEventListener('unload', this.clear);
