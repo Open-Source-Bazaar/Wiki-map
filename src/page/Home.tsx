@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { ScrollList } from 'mobx-restful-table';
 import { PureComponent } from 'react';
@@ -12,13 +12,18 @@ import { WikiCard } from '../component/WikiList';
 
 @observer
 export class HomePage extends PureComponent {
+    constructor(props: {}) {
+        super(props);
+        makeObservable(this);
+    }
+
     store = new WikiModel();
 
     @observable
     keywords = '';
 
     @observable
-    coordinate?: MapModel['currentCoord'];
+    coordinate?: MapModel['currentCoord'] = undefined;
 
     render() {
         const { store, keywords, coordinate } = this;

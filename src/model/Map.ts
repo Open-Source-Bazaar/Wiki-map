@@ -1,5 +1,5 @@
 import { HTTPClient } from 'koajax';
-import { computed, observable } from 'mobx';
+import { computed, makeObservable, observable } from 'mobx';
 import { BaseModel, toggle } from 'mobx-restful';
 import { buildURLData } from 'web-utility';
 
@@ -23,16 +23,21 @@ export interface AddressLocation extends Location {
 }
 
 export class MapModel extends BaseModel {
+    constructor() {
+        super();
+        makeObservable(this);
+    }
+
     nominatimClient = new HTTPClient({
         baseURI: 'https://nominatim.openstreetmap.org',
         responseType: 'json'
     });
 
     @observable
-    currentCoord?: [number, number];
+    currentCoord?: [number, number] = undefined;
 
     @observable
-    currentAddress?: AddressLocation;
+    currentAddress?: AddressLocation = undefined;
 
     @computed
     get currentAddressText() {
