@@ -36,8 +36,8 @@ dependencies:
     specifier: ^1.1.2
     version: 1.1.2(@types/react@17.0.65)(mobx-i18n@0.4.1)(mobx-react@9.0.1)(mobx-restful@0.6.11)(mobx@6.10.2)(react-dom@17.0.2)(react@17.0.2)(typescript@5.2.2)
   open-react-map:
-    specifier: ^0.6.3
-    version: 0.6.3(jsdom@22.1.0)(mobx-react@9.0.1)(mobx@6.10.2)(react-dom@17.0.2)(react@17.0.2)(typescript@5.2.2)
+    specifier: ^0.6.4
+    version: 0.6.4(jsdom@22.1.0)(mobx-react@9.0.1)(mobx@6.10.2)(react-dom@17.0.2)(react@17.0.2)(typescript@5.2.2)
   react:
     specifier: ^17.0.2
     version: 17.0.2
@@ -5179,8 +5179,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /open-react-map@0.6.3(jsdom@22.1.0)(mobx-react@9.0.1)(mobx@6.10.2)(react-dom@17.0.2)(react@17.0.2)(typescript@5.2.2):
-    resolution: {integrity: sha512-JGvyLdI8qwN7Xq/ecNGvqjoQIzI436LCyab4/NNSYG0qxG7OKsRpf6D5X/o2fYZZxad0r05NnpwCCI+ELrA4rA==}
+  /open-react-map@0.6.4(jsdom@22.1.0)(mobx-react@9.0.1)(mobx@6.10.2)(react-dom@17.0.2)(react@17.0.2)(typescript@5.2.2):
+    resolution: {integrity: sha512-W6tk/R1Z04CfIRBLGg7FmtvThwOnSOL3ggJUvNvnKtvbFCwEyzwR9Sg74gn12Q5yEIDFLC4QSW26SNaQEyX1ng==}
     peerDependencies:
       mobx: '>=4'
       mobx-react: '>=6'
