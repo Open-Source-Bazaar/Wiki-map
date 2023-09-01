@@ -1,13 +1,16 @@
 import { Loading } from 'idea-react';
 import { observer } from 'mobx-react';
-import { OpenReactMap, OpenReactMapProps } from 'open-react-map';
+import {
+    AddressLocation,
+    OpenReactMap,
+    OpenReactMapModel,
+    OpenReactMapProps
+} from 'open-react-map';
 import { PureComponent } from 'react';
-
-import mapStore, { AddressLocation, MapModel } from '../model/Map';
 
 export interface AutoMapProps extends OpenReactMapProps {
     onLoad?: (
-        coordinate: MapModel['currentCoord'],
+        coordinate: OpenReactMapModel['currentLocation'],
         address: AddressLocation,
         addressText: string
     ) => any;
@@ -15,27 +18,31 @@ export interface AutoMapProps extends OpenReactMapProps {
 
 @observer
 export class AutoMap extends PureComponent<AutoMapProps> {
+    mapStore = new OpenReactMapModel();
+
     async componentDidMount() {
-        await mapStore.getAddress(...(await mapStore.getCoord()));
+        const { mapStore } = this;
+
+        await mapStore.reverse(...(await mapStore.locate()));
 
         this.props.onLoad?.(
-            mapStore.currentCoord,
-            mapStore.currentAddress,
-            mapStore.currentAddressText
+            mapStore.currentLocation,
+            mapStore.reversedAddress,
+            mapStore.reversedAddressText
         );
     }
 
     render() {
-        const { currentCoord, currentAddressText } = mapStore;
+        const { currentLocation, reversedAddressText } = this.mapStore;
 
-        return currentCoord && currentAddressText ? (
+        return currentLocation && reversedAddressText ? (
             <OpenReactMap
-                center={currentCoord}
+                center={currentLocation}
                 zoom={18}
                 markers={[
                     {
-                        position: currentCoord,
-                        tooltip: currentAddressText
+                        position: currentLocation,
+                        tooltip: reversedAddressText
                     }
                 ]}
                 {...this.props}

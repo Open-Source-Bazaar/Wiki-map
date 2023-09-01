@@ -1,14 +1,14 @@
 import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { ScrollList } from 'mobx-restful-table';
+import { OpenReactMapModel } from 'open-react-map';
 import { PureComponent } from 'react';
 
 import { AutoMap } from '../component/AutoMap';
 import { FloatIconButton } from '../component/IconButton';
-import { MapModel } from '../model/Map';
+import { WikiCard } from '../component/WikiList';
 import { i18n } from '../model/Translation';
 import { WikiModel } from '../model/Wiki';
-import { WikiCard } from '../component/WikiList';
 
 @observer
 export class HomePage extends PureComponent {
@@ -23,7 +23,7 @@ export class HomePage extends PureComponent {
     keywords = '';
 
     @observable
-    coordinate?: MapModel['currentCoord'] = undefined;
+    coordinate?: OpenReactMapModel['currentLocation'] = undefined;
 
     render() {
         const { store, keywords, coordinate } = this;
