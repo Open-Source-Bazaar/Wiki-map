@@ -1,6 +1,7 @@
 import { HTTPClient } from 'koajax';
 import { autorun, when } from 'mobx';
 import { DataObject, Filter, ListModel, Stream, toggle } from 'mobx-restful';
+import { OpenReactMapModel } from 'open-react-map';
 import { buildURLData, parseDOM, stringifyDOM } from 'web-utility';
 
 import { i18n } from './Translation';
@@ -41,7 +42,7 @@ export interface WikiGeoPage extends WikiBasePage {
 
 export interface WikiPageFilter extends Filter<WikiBasePage> {
     keywords?: string;
-    coordinate?: [number, number];
+    coordinate?: OpenReactMapModel['currentLocation'];
 }
 
 interface WikiQueryData<T extends DataObject> {

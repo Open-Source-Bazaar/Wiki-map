@@ -1,15 +1,17 @@
+import { SpeechSynthesisModel, SpeechSynthesisState } from 'mobx-i18n';
 import { observer } from 'mobx-react';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { RouteComponentProps, withRouter } from 'react-router-class-tools';
 
 import { FloatIconButton } from '../component/IconButton';
-import text2voice, { Text2VoiceModel, TTSState } from '../model/Text2Voice';
 import { i18n } from '../model/Translation';
 import wikiStore, { WikiPage } from '../model/Wiki';
 
 @observer
-class EntryPage extends PureComponent<RouteComponentProps<{ title: string }>> {
+class EntryPage extends Component<RouteComponentProps<{ title: string }>> {
+    storeTTS = new SpeechSynthesisModel(i18n);
+
     componentDidMount() {
         const { title } = this.props.match.params;
 
@@ -18,15 +20,19 @@ class EntryPage extends PureComponent<RouteComponentProps<{ title: string }>> {
 
     componentWillUnmount() {
         wikiStore.clearCurrent();
-        text2voice.clear();
+        this.storeTTS.clear();
     }
 
     toggleVoice = () => {
-        if (text2voice.state !== TTSState.Clear) return text2voice.toggle();
+        const { storeTTS } = this;
 
-        text2voice.speak(
-            Text2VoiceModel.getReadableText(document.querySelector('article'))
+        if (storeTTS.state !== SpeechSynthesisState.Clear)
+            return storeTTS.toggle();
+
+        const text = SpeechSynthesisModel.getReadableText(
+            document.querySelector('article')
         );
+        storeTTS.speak(text);
     };
 
     /**
@@ -35,6 +41,7 @@ class EntryPage extends PureComponent<RouteComponentProps<{ title: string }>> {
     render() {
         const { title } = this.props.match.params,
             { fullurl, text } = wikiStore.currentOne as WikiPage,
+            speaking = this.storeTTS.state === SpeechSynthesisState.Speaking,
             { currentLanguage } = i18n;
         const [language] = currentLanguage?.split('-') || [];
 
@@ -55,11 +62,7 @@ class EntryPage extends PureComponent<RouteComponentProps<{ title: string }>> {
                     dangerouslySetInnerHTML={{ __html: text }}
                 />
                 <FloatIconButton
-                    name={
-                        text2voice.state === TTSState.Speaking
-                            ? 'pause-fill'
-                            : 'play-fill'
-                    }
+                    name={speaking ? 'pause-fill' : 'play-fill'}
                     onClick={this.toggleVoice}
                 />
             </Container>

@@ -7,10 +7,10 @@ Wiki map [PWA][4] with [Text-to-Speak][5] support, which is based on [OpenStreet
 ## Technology stack
 
 -   Language: [TypeScript v5][2]
--   Component engine: [React v17][1]
+-   Component engine: [React v18][1]
 -   State management: [MobX v6][3]
 -   Component suite: [React Bootstrap v2][8]
--   HTTP Client: [KoAJAX][9]
+-   HTTP Client: [KoAJAX v3][9]
 -   PWA framework: [Workbox v7][10]
 -   Package bundler: [Parcel v2][11]
 -   CI / CD: GitHub [Actions][12] + [Pages][13]
