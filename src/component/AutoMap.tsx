@@ -6,7 +6,7 @@ import {
     OpenReactMapModel,
     OpenReactMapProps
 } from 'open-react-map';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 
 export interface AutoMapProps extends OpenReactMapProps {
     onLoad?: (
@@ -17,7 +17,7 @@ export interface AutoMapProps extends OpenReactMapProps {
 }
 
 @observer
-export class AutoMap extends PureComponent<AutoMapProps> {
+export class AutoMap extends Component<AutoMapProps> {
     mapStore = new OpenReactMapModel();
 
     async componentDidMount() {

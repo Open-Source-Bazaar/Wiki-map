@@ -1,8 +1,8 @@
-import { makeObservable, observable } from 'mobx';
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { ScrollList } from 'mobx-restful-table';
 import { OpenReactMapModel } from 'open-react-map';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 
 import { AutoMap } from '../component/AutoMap';
 import { FloatIconButton } from '../component/IconButton';
@@ -11,19 +11,14 @@ import { i18n } from '../model/Translation';
 import { WikiModel } from '../model/Wiki';
 
 @observer
-export class HomePage extends PureComponent {
-    constructor(props: {}) {
-        super(props);
-        makeObservable(this);
-    }
-
+export class HomePage extends Component {
     store = new WikiModel();
 
     @observable
-    keywords = '';
+    accessor keywords = '';
 
     @observable
-    coordinate?: OpenReactMapModel['currentLocation'] = undefined;
+    accessor coordinate: OpenReactMapModel['currentLocation'] | undefined;
 
     render() {
         const { store, keywords, coordinate } = this;
